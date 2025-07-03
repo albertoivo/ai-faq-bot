@@ -1,0 +1,76 @@
+{
+  "faq": [
+    {
+      "question": "What is AI FAQ Bot?",
+      "answer": "AI FAQ Bot is a FastAPI application that provides an API for managing and querying FAQs using AI."
+    },
+    {
+      "question": "How do I use the API?",
+      "answer": "You can use the API by sending requests to the endpoints defined in the documentation. Check /docs for the Swagger UI for an interactive experience."
+    },
+    {
+      "question": "What technologies are used?",
+      "answer": "The bot is built with Python, FastAPI, and uses OpenAI's APIs for natural language processing tasks like summarization and embeddings."
+    },
+    {
+      "question": "How does the semantic search work?",
+      "answer": "Semantic search works by converting questions into numerical representations (embeddings) and finding the closest matches based on cosine similarity. This allows finding answers to questions that are semantically similar, not just keyword matches."
+    },
+    {
+      "question": "Where is the FAQ data stored?",
+      "answer": "The FAQ data is stored in a JSON file located at `data/faq_data.json`."
+    },
+    {
+      "question": "How do I run the application?",
+      "answer": "You can run the application locally using `uvicorn app.main:app --reload`. Make sure you have installed all the dependencies from `requirements.txt`."
+    },
+    {
+      "question": "How can I run the project with Docker?",
+      "answer": "You can use the provided `Dockerfile` and `docker-compose.yml` to build and run the application in a containerized environment. Simply run `docker-compose up`."
+    },
+    {
+      "question": "What are embeddings?",
+      "answer": "Embeddings are vector representations of text, where words and sentences with similar meanings are placed closer together in a multi-dimensional space. We use them to understand the semantic meaning of questions."
+    },
+    {
+      "question": "How do I regenerate the embeddings for the FAQ?",
+      "answer": "The embeddings are generated automatically if the `faq_embeddings.pkl` file is not found. To force regeneration, you can delete this file and restart the application. An API endpoint for this is also planned."
+    },
+    {
+      "question": "What is the purpose of the `requirements.txt` file?",
+      "answer": "The `requirements.txt` file lists all the Python packages that the project depends on. You can install them all by running `pip install -r requirements.txt`."
+    },
+    {
+      "question": "How is the OpenAI API key managed?",
+      "answer": "The OpenAI API key should be set as an environment variable named `OPENAI_API_KEY`. The application loads this variable to configure the OpenAI client. It is not stored in the code."
+    },
+    {
+      "question": "Can I use a different embedding model?",
+      "answer": "Yes, you can change the model by modifying the `model` parameter in the `get_embeddings` function call within the `openai_services.py` file."
+    },
+    {
+      "question": "How can I contribute to the project?",
+      "answer": "Contributions are welcome! You can contribute by forking the repository, creating a new branch for your feature or bug fix, and submitting a pull request. Please follow the existing code style."
+    },
+    {
+      "question": "What is the license of this project?",
+      "answer": "This project is licensed under the MIT License. You can find the full license text in the `LICENSE` file."
+    },
+    {
+      "question": "How do I get a summary of a YouTube video?",
+      "answer": "You can use the `/youtube/summary` endpoint. Send a POST request with a JSON body containing the `video_url` to get a structured summary of the video's transcript."
+    },
+    {
+      "question": "What should I do if the semantic search returns irrelevant results?",
+      "answer": "If the search results are not relevant, the underlying FAQ data may not have the right information. Consider adding more relevant Q&A pairs to `faq_data.json` and regenerating the embeddings. You could also experiment with different embedding models."
+    },
+    {
+      "question": "Is there API authentication?",
+      "answer": "Currently, the API is open for simplicity. For production environments, implementing an authentication layer using FastAPI's security utilities (like OAuth2 or API Keys) is highly recommended."
+    },
+    {
+      "question": "How are application logs managed?",
+      "answer": "The application is configured to log events to both the console and a file in the `logs/` directory. The logging configuration can be adjusted in `app/config/logging.py`."
+    }
+  ]
+}
