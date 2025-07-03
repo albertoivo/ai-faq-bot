@@ -13,6 +13,7 @@ app = FastAPI(
 
 app.include_router(faq.router)
 
+
 @app.get("/", tags=["Home"], summary="Initial Route")
 def home():
     logger.info("Home route accessed")
@@ -23,6 +24,7 @@ def home():
 def health_check():
     logger.info("Health check route accessed")
     return {"status": "healthy"}
+
 
 @app.get("/version", tags=["Home"], summary="Version Check")
 def version_check():

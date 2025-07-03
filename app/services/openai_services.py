@@ -73,7 +73,9 @@ def detect_language(text: str, model: str = "gpt-3.5-turbo") -> str:
             return language_code
         else:
             # Fallback or error
-            print(f"Warning: Could not determine a valid language code. Response: '{language_code}'")
+            print(
+                f"Warning: Could not determine a valid language code. Response: '{language_code}'"
+            )
             return "en"  # Default to English as a fallback
 
     except Exception as e:

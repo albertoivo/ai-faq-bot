@@ -1,6 +1,6 @@
-from fastapi import FastAPI, APIRouter, Depends, HTTPException, status
+from fastapi import APIRouter, Depends, HTTPException, status
 from openai import OpenAI
-import numpy as np
+
 from app.schemas.schemas import FAQ, FAQRequest, FAQResponse
 from app.services.embedding_service import EmbeddingService
 
@@ -9,12 +9,20 @@ router = APIRouter(prefix="/api/v1/faq", tags=["FAQ"])
 
 client = OpenAI()
 
+
 # Dependency to get a singleton instance of the service
 def get_embedding_service():
     return EmbeddingService()
 
-@router.post("/search", response_model=FAQResponse, summary="Search for a FAQ using semantic search")
-def search_faq(request: FAQRequest, service: EmbeddingService = Depends(get_embedding_service)):
+
+@router.post(
+    "/search",
+    response_model=FAQResponse,
+    summary="Search for a FAQ using semantic search",
+)
+def search_faq(
+    request: FAQRequest, service: EmbeddingService = Depends(get_embedding_service)
+):
     """
     Performs semantic search to find the most relevant FAQ for a given question.
 
@@ -34,7 +42,11 @@ def search_faq(request: FAQRequest, service: EmbeddingService = Depends(get_embe
     return FAQResponse(faqs=[faq_item])
 
 
-@router.post("/regenerate-embeddings", status_code=status.HTTP_202_ACCEPTED, summary="Regenerate FAQ embeddings")
+@router.post(
+    "/regenerate-embeddings",
+    status_code=status.HTTP_202_ACCEPTED,
+    summary="Regenerate FAQ embeddings",
+)
 def regenerate_embeddings(service: EmbeddingService = Depends(get_embedding_service)):
     """
     Triggers the regeneration of embeddings for all supported languages.
@@ -49,10 +61,10 @@ def regenerate_embeddings(service: EmbeddingService = Depends(get_embedding_serv
             # To force regeneration, we would first delete the .pkl file
             if service.embeddings_path and service.embeddings_path.exists():
                 service.embeddings_path.unlink()
-            
+
             # Re-initialize the service for the specific language to force reload
             lang_service = EmbeddingService(language=lang)
-            lang_service._get_or_generate_embeddings() # This will now regenerate
+            lang_service._get_or_generate_embeddings()  # This will now regenerate
 
         except Exception as e:
             # In a real app, you might want to log this more robustly

@@ -1,12 +1,12 @@
 import json
 import pickle
 from pathlib import Path
-from typing import List, Dict, Any, Tuple
+from typing import Any, Dict, List, Tuple
 
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-from app.services.openai_services import get_embeddings, detect_language
+from app.services.openai_services import detect_language, get_embeddings
 
 
 class EmbeddingService:
@@ -91,7 +91,9 @@ class EmbeddingService:
         best_match_index = np.argmax(similarities)
         best_match_score = similarities[0, best_match_index]
 
-        print(f"Best match found: Index={best_match_index}, Score={best_match_score:.4f}")
+        print(
+            f"Best match found: Index={best_match_index}, Score={best_match_score:.4f}"
+        )
 
         if best_match_score >= threshold:
             best_match_faq = self.faq_data[best_match_index]
