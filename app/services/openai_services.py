@@ -1,0 +1,1 @@
+# Funções para interagir com a API da OpenAI (geração de embeddings, talvez chamadas a LLM).
