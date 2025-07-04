@@ -26,11 +26,15 @@ def search_faq(
 ):
     """
     Performs semantic search to find the most relevant FAQ for a given question.
-
-    This endpoint automatically detects the language of the query and searches the
-    corresponding FAQ dataset (e.g., English or Portuguese).
+    
+    The FAQ data is loaded from the provided URL and the system automatically
+    detects the language of the query and performs semantic search.
     """
-    match = service.find_best_match(request.question, enhance_with_llm=request.enhance_with_llm)
+    match = service.find_best_match(
+        query=request.question,
+        faq_url=request.faq_url,  # NOVO: URL do FAQ
+        enhance_with_llm=request.enhance_with_llm
+    )
 
     if not match:
         raise HTTPException(
@@ -50,26 +54,16 @@ def search_faq(
 )
 def regenerate_embeddings(service: EmbeddingService = Depends(get_embedding_service)):
     """
-    Triggers the regeneration of embeddings for all supported languages.
-
-    This is an asynchronous-like operation. The server will start the process
-    and return a 202 Accepted response immediately.
+    Clears the embedding cache to force regeneration on next search.
     """
-    supported_languages = ["en", "pt"]  # Define supported languages here
-    for lang in supported_languages:
+    import os
+    cache_files = list(service.data_path.glob("faq_*_embeddings.pkl"))
+    
+    for cache_file in cache_files:
         try:
-            # Load resources which will trigger generation if files don't exist
-            # To force regeneration, we would first delete the .pkl file
-            if service.embeddings_path and service.embeddings_path.exists():
-                service.embeddings_path.unlink()
-
-            # Re-initialize the service for the specific language to force reload
-            lang_service = EmbeddingService(language=lang)
-            lang_service._get_or_generate_embeddings()  # This will now regenerate
-
+            cache_file.unlink()
+            print(f"Deleted cache file: {cache_file}")
         except Exception as e:
-            # In a real app, you might want to log this more robustly
-            print(f"Could not regenerate embeddings for language '{lang}': {e}")
-            # Decide if you want to raise an exception or just log the error
-
-    return {"message": "Embedding regeneration process started for all languages."}
+            print(f"Error deleting cache file {cache_file}: {e}")
+    
+    return {"message": f"Cleared {len(cache_files)} embedding cache files."}
