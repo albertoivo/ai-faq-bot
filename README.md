@@ -87,7 +87,7 @@ The standalone branch offers a **complete system** where:
 - Git
 - OpenAI API Key
 
-### Option 1: Local Development with Virtual Environment
+### Local Development with Virtual Environment
 
 #### 1. Clone the Repository
 ```bash
