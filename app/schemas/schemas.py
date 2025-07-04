@@ -10,6 +10,7 @@ class FAQ(BaseModel):
 
 class FAQRequest(BaseModel):
     question: str
+    enhance_with_llm: bool = True
 
 
 class FAQResponse(BaseModel):

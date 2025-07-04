@@ -6,7 +6,11 @@ from typing import Any, Dict, List, Tuple
 import numpy as np
 from sklearn.metrics.pairwise import cosine_similarity
 
-from app.services.openai_services import detect_language, get_embeddings
+from app.services.openai_services import (
+    detect_language,
+    get_embeddings,
+    generate_friendly_answer,
+)
 
 
 class EmbeddingService:
@@ -57,7 +61,7 @@ class EmbeddingService:
         return embeddings_np
 
     def find_best_match(
-        self, query: str, threshold: float = 0.8
+        self, query: str, threshold: float = 0.8, enhance_with_llm: bool = True
     ) -> Tuple[str, str] | None:
         """
         Finds the best matching FAQ for a given query using semantic search.
@@ -65,6 +69,7 @@ class EmbeddingService:
         Args:
             query (str): The user's question.
             threshold (float): The minimum similarity score to consider a match.
+            enhance_with_llm (bool): Whether to enhance the answer with LLM for friendlier response.
 
         Returns:
             Tuple[str, str] | None: A tuple containing the best matching question
@@ -97,6 +102,19 @@ class EmbeddingService:
 
         if best_match_score >= threshold:
             best_match_faq = self.faq_data[best_match_index]
-            return best_match_faq["question"], best_match_faq["answer"]
+            original_question = best_match_faq["question"]
+            original_answer = best_match_faq["answer"]
+            
+            # Enhance the answer with LLM if requested
+            if enhance_with_llm:
+                try:
+                    enhanced_answer = generate_friendly_answer(query, original_answer)
+                    return original_question, enhanced_answer
+                except Exception as e:
+                    print(f"Failed to enhance answer with LLM: {e}")
+                    # Fall back to original answer
+                    return original_question, original_answer
+            else:
+                return original_question, original_answer
 
         return None

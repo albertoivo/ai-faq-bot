@@ -1,5 +1,6 @@
 from fastapi import APIRouter, Depends, HTTPException, status
 from openai import OpenAI
+from pydantic import BaseModel
 
 from app.schemas.schemas import FAQ, FAQRequest, FAQResponse
 from app.services.embedding_service import EmbeddingService
@@ -29,7 +30,7 @@ def search_faq(
     This endpoint automatically detects the language of the query and searches the
     corresponding FAQ dataset (e.g., English or Portuguese).
     """
-    match = service.find_best_match(request.question)
+    match = service.find_best_match(request.question, enhance_with_llm=request.enhance_with_llm)
 
     if not match:
         raise HTTPException(
