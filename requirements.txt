@@ -13,3 +13,4 @@ isort==5.12.0
 openai
 numpy
 scikit-learn
+requests
