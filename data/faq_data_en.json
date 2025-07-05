@@ -71,6 +71,66 @@
     {
       "question": "How are application logs managed?",
       "answer": "The application is configured to log events to both the console and a file in the `logs/` directory. The logging configuration can be adjusted in `app/config/logging.py`."
+    },
+    {
+      "question": "What is the main web framework used in this project?",
+      "answer": "The project is built using FastAPI, a modern, fast web framework for building APIs with Python."
+    },
+    {
+      "question": "What tool is used for testing?",
+      "answer": "The project uses Pytest, a powerful and popular testing framework for Python."
+    },
+    {
+      "question": "How is the application served during development?",
+      "answer": "Uvicorn, an ASGI server, is used to run the application, especially with the `--reload` flag for a better development experience."
+    },
+    {
+      "question": "Which tools ensure code quality?",
+      "answer": "The project uses Black for consistent code formatting and Flake8 for linting to catch style issues and errors."
+    },
+    {
+      "question": "What are the prerequisites for setting up the project?",
+      "answer": "You need to have Python 3.10+ and Git installed on your system."
+    },
+    {
+      "question": "What is the command to start the application locally?",
+      "answer": "You can start the application by running `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`."
+    },
+    {
+      "question": "What are the guidelines for contributing to the project?",
+      "answer": "Contributors should follow PEP 8 style, add tests for new features, update documentation as needed, and use meaningful commit messages."
+    },
+    {
+      "question": "Where can I find help or report an issue?",
+      "answer": "You can check the GitHub Issues page. If your problem is not listed, you can create a new issue with detailed information."
+    },
+    {
+      "question": "How can I use my own FAQ data with the API?",
+      "answer": "You can provide a URL to your own `faq_data.json` file via the `faq_url` parameter in the `/api/v1/faq/search` endpoint. The API will dynamically load and use your data."
+    },
+    {
+      "question": "What happens if I provide an invalid URL for the FAQ data?",
+      "answer": "The API includes robust error handling. If the URL is invalid, unreachable, or the content is not valid JSON, the API will return a specific HTTP error (e.g., 400 Bad Request) with a descriptive message."
+    },
+    {
+      "question": "How are the embeddings cached?",
+      "answer": "When you provide a `faq_url`, the service generates embeddings for that FAQ and caches them in memory. Subsequent requests using the same URL will be much faster as they will use the cached embeddings."
+    },
+    {
+      "question": "What is the default embedding model?",
+      "answer": "The service uses OpenAI's `text-embedding-3-small` model by default, which offers a good balance of performance and cost. This can be configured in the `openai_services.py` file."
+    },
+    {
+      "question": "What is the purpose of the `app/schemas` directory?",
+      "answer": "The `app/schemas` directory contains Pydantic models that define the data shapes for API requests and responses, ensuring data validation and clear API contracts."
+    },
+    {
+      "question": "What is the difference between the `main` and `standalone` branches?",
+      "answer": "The `main` branch contains the API that can load FAQs from any URL. The `standalone` branch is designed to work with a built-in, local `faq_data.json` file, making it a self-contained application without the dynamic loading feature."
+    },
+    {
+      "question": "How can I change the application's default port?",
+      "answer": "You can change the port by modifying the `uvicorn` command. For example, to run on port 8080, use: `uvicorn app.main:app --reload --port 8080`."
     }
   ]
 }

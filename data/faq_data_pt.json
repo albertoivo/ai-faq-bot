@@ -71,6 +71,66 @@
     {
       "question": "Como os logs da aplicação são gerenciados?",
       "answer": "A aplicação está configurada para registrar eventos tanto no console quanto em um arquivo no diretório `logs/`. A configuração de logging pode ser ajustada em `app/config/logging.py`."
+    },
+    {
+      "question": "Qual é o principal framework web usado neste projeto?",
+      "answer": "O projeto é construído usando FastAPI, um framework web moderno e rápido para construir APIs com Python."
+    },
+    {
+      "question": "Qual ferramenta é usada para testes?",
+      "answer": "O projeto usa Pytest, um framework de testes poderoso e popular para Python."
+    },
+    {
+      "question": "Como a aplicação é servida durante o desenvolvimento?",
+      "answer": "Uvicorn, um servidor ASGI, é usado para executar a aplicação, especialmente com a flag `--reload` para uma melhor experiência de desenvolvimento."
+    },
+    {
+      "question": "Quais ferramentas garantem a qualidade do código?",
+      "answer": "O projeto usa Black para formatação de código consistente e Flake8 para linting para capturar problemas de estilo e erros."
+    },
+    {
+      "question": "Quais são os pré-requisitos para configurar o projeto?",
+      "answer": "Você precisa ter Python 3.10+ e Git instalados em seu sistema."
+    },
+    {
+      "question": "Qual é o comando para iniciar a aplicação localmente?",
+      "answer": "Você pode iniciar a aplicação executando `uvicorn app.main:app --reload --host 0.0.0.0 --port 8000`."
+    },
+    {
+      "question": "Quais são as diretrizes para contribuir com o projeto?",
+      "answer": "Os contribuidores devem seguir o estilo PEP 8, adicionar testes para novas funcionalidades, atualizar a documentação conforme necessário e usar mensagens de commit significativas."
+    },
+    {
+      "question": "Onde posso encontrar ajuda ou relatar um problema?",
+      "answer": "Você pode verificar a página de Issues do GitHub. Se o seu problema não estiver listado, você pode criar uma nova issue com informações detalhadas."
+    },
+    {
+      "question": "Como posso usar meus próprios dados de FAQ com a API?",
+      "answer": "Você pode fornecer uma URL para o seu próprio arquivo `faq_data.json` através do parâmetro `faq_url` no endpoint `/api/v1/faq/search`. A API irá carregar e usar seus dados dinamicamente."
+    },
+    {
+      "question": "O que acontece se eu fornecer uma URL inválida para os dados do FAQ?",
+      "answer": "A API inclui um tratamento de erros robusto. Se a URL for inválida, inacessível ou o conteúdo não for um JSON válido, a API retornará um erro HTTP específico (por exemplo, 400 Bad Request) com uma mensagem descritiva."
+    },
+    {
+      "question": "Como os embeddings são cacheados?",
+      "answer": "Quando você fornece uma `faq_url`, o serviço gera embeddings para esse FAQ e os armazena em cache na memória. Requisições subsequentes usando a mesma URL serão muito mais rápidas, pois usarão os embeddings cacheados."
+    },
+    {
+      "question": "Qual é o modelo de embedding padrão?",
+      "answer": "O serviço usa o modelo `text-embedding-3-small` da OpenAI por padrão, que oferece um bom equilíbrio entre desempenho e custo. Isso pode ser configurado no arquivo `openai_services.py`."
+    },
+    {
+      "question": "Qual é o propósito do diretório `app/schemas`?",
+      "answer": "O diretório `app/schemas` contém modelos Pydantic que definem os formatos dos dados para as requisições e respostas da API, garantindo a validação dos dados e contratos de API claros."
+    },
+    {
+      "question": "Qual é a diferença entre as branches `main` e `standalone`?",
+      "answer": "A branch `main` contém a API que pode carregar FAQs de qualquer URL. A branch `standalone` é projetada para funcionar com um arquivo `faq_data.json` local e embutido, tornando-a uma aplicação autônoma sem o recurso de carregamento dinâmico."
+    },
+    {
+      "question": "Como posso alterar a porta padrão da aplicação?",
+      "answer": "Você pode alterar a porta modificando o comando `uvicorn`. Por exemplo, para rodar na porta 8080, use: `uvicorn app.main:app --reload --port 8080`."
     }
   ]
 }
