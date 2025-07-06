@@ -40,7 +40,7 @@ def search_faq(
 
     question, answer = match
     faq_item = FAQ(question=question, answer=answer)
-    return FAQResponse(faqs=[faq_item])
+    return FAQResponse(faq=faq_item)
 
 
 @router.post(

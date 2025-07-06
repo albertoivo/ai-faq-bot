@@ -14,4 +14,4 @@ class FAQRequest(BaseModel):
 
 
 class FAQResponse(BaseModel):
-    faqs: List[FAQ]
+    faq: FAQ
