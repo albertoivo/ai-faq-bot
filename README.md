@@ -130,6 +130,18 @@ uvicorn app.main:app --reload --host 0.0.0.0 --port 8000
 
 ## 🚀 How to Use
 
+### 📚 API Documentation
+Once the application is running, you can access the interactive API documentation:
+
+- **Swagger UI**: [http://localhost:8000/docs](http://localhost:8000/docs)
+- **ReDoc**: [http://localhost:8000/redoc](http://localhost:8000/redoc)
+
+These interfaces allow you to:
+- View all available endpoints
+- Test the API directly from your browser
+- See request/response schemas
+- Generate code examples in various programming languages
+
 ### Branch `main` - API
 ```bash
 # Search for answer in external FAQ
